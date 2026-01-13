@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,7 +19,7 @@ export default function Home() {
   const [keyword, setKeyword] = useState("");
   const [targetMarket, setTargetMarket] = useState("brazil");
   const [targetLanguage, setTargetLanguage] = useState("portuguese-br");
-  const [loading, setLoading] = useState(false);
+  const [generating, setGenerating] = useState(false);
   const [result, setResult] = useState<any>(null);
 
   const markets = [
@@ -39,62 +40,42 @@ export default function Home() {
     { value: "filipino", label: "菲律宾语" },
   ];
 
+  const generateMutation = trpc.contentFactory.generate.useMutation();
+
   const handleGenerate = async () => {
     if (!keyword.trim()) {
       toast.error("请输入搜索关键词");
       return;
     }
 
-    setLoading(true);
+    setGenerating(true);
     setResult(null);
 
     try {
-      // 模拟API调用
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
-      // 模拟结果
-      setResult({
-        originalVideo: {
-          title: keyword + " - 2025年最火合集",
-          channel: "Demo Channel",
-          views: "1.2M",
-        },
-        analysis: {
-          coreIdea: "汇聚年度热门内容，打造欢乐娱乐盛宴",
-          contentType: "娱乐合集",
-          targetAudience: "喜爱娱乐内容的观众",
-        },
-        script: `### Título: "Bom Humor em Ação: As Melhores ${keyword} do Ano 2025"
-
-### Roteiro
-
-#### 1. Abertura
-- **Cena:** Um cenário fictício de uma festa de fim de ano no Rio de Janeiro...
-- **Diálogo:** "Escutem, eu tenho uma piada que é tão boa..."
-
-#### 2. Cena 1: "O Enganador de Amor"
-- **Cena:** Um casal no parque, o homem está tentando fazer uma piada...
-- **Localização:** O parque de Ipanema, com a vista da praia...
-
-#### 3. Cena 2: "O Desafio da Cerveja"
-- **Cena:** Um grupo de amigos no bar...
-- **Localização:** Bar no bairro de Leblon...
-
-### Elementos Localizados
-- **Música de Chorinho:** A música "Chorinho do Trem"...
-- **Parques e Praias:** A utilização de cenários como o Parque de Ipanema...`
+      const response = await generateMutation.mutateAsync({
+        keyword,
+        targetMarket,
+        targetLanguage,
       });
-      
-      toast.success("脚本生成成功！");
+
+      if (response.success) {
+        setResult(response.data);
+        toast.success("脚本生成成功！");
+      } else {
+        toast.error("生成失败，请重试");
+      }
     } catch (error) {
-      toast.error("生成失败，请重试");
+      console.error("Generation error:", error);
+      toast.error(error instanceof Error ? error.message : "生成失败，请重试");
     } finally {
-      setLoading(false);
+      setGenerating(false);
     }
   };
 
   const handleDownload = () => {
     if (!result) return;
+    
+    const keyElementsStr = result.analysis.keyElements ? result.analysis.keyElements.join(", ") : "N/A";
     
     const content = `使用模型: 智谱AI GLM-4-Flash
 原始视频: ${result.originalVideo.title}
@@ -106,6 +87,7 @@ export default function Home() {
 核心创意: ${result.analysis.coreIdea}
 内容类型: ${result.analysis.contentType}
 目标受众: ${result.analysis.targetAudience}
+关键元素: ${keyElementsStr}
 
 ============================================================
 重新创作的脚本:
@@ -190,7 +172,7 @@ ${result.script}`;
                     placeholder="例如：搞笑恶作剧、美食教程、旅游vlog"
                     value={keyword}
                     onChange={(e) => setKeyword(e.target.value)}
-                    disabled={loading}
+                    disabled={generating}
                   />
                 </div>
 
@@ -199,7 +181,7 @@ ${result.script}`;
                   <Select
                     value={targetMarket}
                     onValueChange={setTargetMarket}
-                    disabled={loading}
+                    disabled={generating}
                   >
                     <SelectTrigger id="market">
                       <SelectValue />
@@ -219,7 +201,7 @@ ${result.script}`;
                   <Select
                     value={targetLanguage}
                     onValueChange={setTargetLanguage}
-                    disabled={loading}
+                    disabled={generating}
                   >
                     <SelectTrigger id="language">
                       <SelectValue />
@@ -236,11 +218,11 @@ ${result.script}`;
 
                 <Button
                   onClick={handleGenerate}
-                  disabled={loading}
+                  disabled={generating}
                   className="w-full"
                   size="lg"
                 >
-                  {loading ? (
+                  {generating ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       生成中...
@@ -267,7 +249,7 @@ ${result.script}`;
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {!result && !loading && (
+                {!result && !generating && (
                   <div className="flex h-64 items-center justify-center rounded-lg border-2 border-dashed">
                     <p className="text-sm text-muted-foreground">
                       输入关键词并点击生成按钮开始
@@ -275,7 +257,7 @@ ${result.script}`;
                   </div>
                 )}
 
-                {loading && (
+                {generating && (
                   <div className="flex h-64 items-center justify-center">
                     <div className="text-center">
                       <Loader2 className="mx-auto mb-4 h-12 w-12 animate-spin text-primary" />
