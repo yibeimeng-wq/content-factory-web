@@ -17,3 +17,10 @@
 - [x] 创建YouTube API集成模块
 - [x] 更新contentFactory使用真实YouTube数据
 - [x] 测试YouTube API集成
+
+## 新功能：使用配额限制
+- [x] 设计数据库schema存储用户配额和使用记录
+- [x] 创建配额检查和记录逻辑
+- [x] 集成配额限制到contentFactory API
+- [x] 添加前端配额显示和超限提示
+- [x] 测试配额限制功能

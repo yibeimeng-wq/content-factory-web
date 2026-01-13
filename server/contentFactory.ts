@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { publicProcedure, router } from "./_core/trpc";
+import { protectedProcedure, router } from "./_core/trpc";
+import { checkQuota, recordUsage } from "./quota";
 import { analyzeVideo, recreateScript } from "./zhipuai";
 import { searchYouTubeVideos as searchYT, getMarketCodes } from "./youtube";
 
@@ -7,9 +8,16 @@ import { searchYouTubeVideos as searchYT, getMarketCodes } from "./youtube";
 
 export const contentFactoryRouter = router({
   /**
+   * 获取用户配额状态
+   */
+  getQuota: protectedProcedure.query(async ({ ctx }) => {
+    return await checkQuota(ctx.user.id);
+  }),
+
+  /**
    * 生成内容脚本
    */
-  generate: publicProcedure
+  generate: protectedProcedure
     .input(
       z.object({
         keyword: z.string().min(1, "关键词不能为空"),
@@ -17,10 +25,17 @@ export const contentFactoryRouter = router({
         targetLanguage: z.string(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const { keyword, targetMarket, targetLanguage } = input;
 
       try {
+        // 检查配额
+        const quotaStatus = await checkQuota(ctx.user.id);
+        if (!quotaStatus.allowed) {
+          throw new Error(
+            `每日配额已用完。您今天已使用 ${quotaStatus.limit} 次生成。配额将在 ${quotaStatus.resetAt.toLocaleString('zh-CN')} 重置。`
+          );
+        }
         // 1. 搜索YouTube视频（使用真实API）
         const { language, country } = getMarketCodes(targetMarket);
         const youtubeResult = await searchYT(keyword, language, country, 3);
@@ -65,6 +80,9 @@ export const contentFactoryRouter = router({
             script,
           },
         };
+
+        // 记录使用
+        await recordUsage(ctx.user.id, keyword, targetMarket);
       } catch (error) {
         console.error("Content generation error:", error);
         throw new Error(

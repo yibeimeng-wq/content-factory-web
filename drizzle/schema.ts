@@ -25,4 +25,22 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+/**
+ * Usage tracking table for rate limiting.
+ * Tracks each script generation request per user.
+ */
+export const usageRecords = mysqlTable("usageRecords", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  /** Type of operation: 'generate_script' */
+  operationType: varchar("operationType", { length: 50 }).notNull(),
+  /** Search keyword used */
+  keyword: text("keyword"),
+  /** Target market */
+  targetMarket: varchar("targetMarket", { length: 50 }),
+  /** Timestamp of the request */
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type UsageRecord = typeof usageRecords.$inferSelect;
+export type InsertUsageRecord = typeof usageRecords.$inferInsert;

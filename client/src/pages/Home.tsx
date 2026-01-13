@@ -22,6 +22,11 @@ export default function Home() {
   const [generating, setGenerating] = useState(false);
   const [result, setResult] = useState<any>(null);
 
+  // 获取配额状态
+  const { data: quotaData } = trpc.contentFactory.getQuota.useQuery(undefined, {
+    refetchInterval: 30000, // 每30秒刷新
+  });
+
   const markets = [
     { value: "brazil", label: "巴西 (Brazil)" },
     { value: "mexico", label: "墨西哥 (Mexico)" },
@@ -45,6 +50,14 @@ export default function Home() {
   const handleGenerate = async () => {
     if (!keyword.trim()) {
       toast.error("请输入搜索关键词");
+      return;
+    }
+
+    // 检查配额
+    if (quotaData && !quotaData.allowed) {
+      toast.error(
+        `每日配额已用完！您今天已使用 ${quotaData.limit} 次生成。配额将在 ${new Date(quotaData.resetAt).toLocaleString('zh-CN')} 重置。`
+      );
       return;
     }
 
@@ -136,6 +149,14 @@ ${result.script}`;
                 <CheckCircle2 className="h-5 w-5 text-primary" />
                 <span>完全免费</span>
               </div>
+              {quotaData && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <CheckCircle2 className="h-5 w-5 text-primary" />
+                  <span>
+                    今日剩余: {quotaData.remaining}/{quotaData.limit} 次
+                  </span>
+                </div>
+              )}
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <CheckCircle2 className="h-5 w-5 text-primary" />
                 <span>智谱AI驱动</span>
