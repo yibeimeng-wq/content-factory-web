@@ -1,36 +1,9 @@
 import { z } from "zod";
 import { publicProcedure, router } from "./_core/trpc";
 import { analyzeVideo, recreateScript } from "./zhipuai";
+import { searchYouTubeVideos as searchYT, getMarketCodes } from "./youtube";
 
-// 模拟YouTube搜索结果（实际项目中应该调用YouTube Data API）
-function searchYouTubeVideos(keyword: string) {
-  return [
-    {
-      id: "demo1",
-      title: `${keyword} - 2025年最火合集`,
-      description: `这是一个关于${keyword}的精彩视频合集，包含了2025年最受欢迎的内容。`,
-      channel: "Demo Channel",
-      views: "1.2M",
-      thumbnail: "https://via.placeholder.com/320x180",
-    },
-    {
-      id: "demo2",
-      title: `${keyword}精选 | 爆笑时刻`,
-      description: `收集了最搞笑的${keyword}片段，保证让你笑到停不下来！`,
-      channel: "Funny Moments",
-      views: "850K",
-      thumbnail: "https://via.placeholder.com/320x180",
-    },
-    {
-      id: "demo3",
-      title: `终极${keyword}挑战`,
-      description: `挑战各种${keyword}，看看谁能坚持到最后！`,
-      channel: "Challenge Masters",
-      views: "2.1M",
-      thumbnail: "https://via.placeholder.com/320x180",
-    },
-  ];
-}
+
 
 export const contentFactoryRouter = router({
   /**
@@ -48,14 +21,20 @@ export const contentFactoryRouter = router({
       const { keyword, targetMarket, targetLanguage } = input;
 
       try {
-        // 1. 搜索YouTube视频（使用模拟数据）
-        const videos = searchYouTubeVideos(keyword);
-        const selectedVideo = videos[0]; // 选择第一个视频
+        // 1. 搜索YouTube视频（使用真实API）
+        const { language, country } = getMarketCodes(targetMarket);
+        const youtubeResult = await searchYT(keyword, language, country, 3);
+        
+        if (!youtubeResult.videos || youtubeResult.videos.length === 0) {
+          throw new Error("未找到相关视频");
+        }
+        
+        const selectedVideo = youtubeResult.videos[0];
 
         // 2. 分析视频内容
         const analysis = await analyzeVideo(
           selectedVideo.title,
-          selectedVideo.description
+          selectedVideo.descriptionSnippet || selectedVideo.title
         );
 
         // 3. 重新创作脚本
@@ -70,9 +49,12 @@ export const contentFactoryRouter = router({
           data: {
             originalVideo: {
               title: selectedVideo.title,
-              channel: selectedVideo.channel,
-              views: selectedVideo.views,
-              description: selectedVideo.description,
+              channel: selectedVideo.channelTitle,
+              views: selectedVideo.viewCountText,
+              videoId: selectedVideo.videoId,
+              publishedAt: selectedVideo.publishedTimeText,
+              duration: selectedVideo.lengthText,
+              description: selectedVideo.descriptionSnippet || "",
             },
             analysis: {
               coreIdea: analysis.coreIdea,
