@@ -1,6 +1,7 @@
 import { and, count, eq, gte } from "drizzle-orm";
 import { usageRecords } from "../drizzle/schema";
 import { getDb } from "./db";
+import { checkAndNotifyUserMilestone } from "./userStats";
 
 /**
  * Quota configuration
@@ -75,6 +76,14 @@ export async function recordUsage(
     keyword,
     targetMarket,
   });
+
+  // Check if we should notify about user milestone
+  try {
+    await checkAndNotifyUserMilestone(userId.toString());
+  } catch (error) {
+    console.error("[Quota] Failed to check user milestone:", error);
+    // Don't throw - notification failure shouldn't block the main operation
+  }
 }
 
 /**
