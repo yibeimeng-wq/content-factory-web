@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,8 +24,11 @@ export default function Home() {
   const [generating, setGenerating] = useState(false);
   const [result, setResult] = useState<any>(null);
 
+  // 获取用户状态
+  const { user, isAuthenticated } = useAuth();
+
   // 获取配额状态
-  const { data: quotaData } = trpc.contentFactory.getQuota.useQuery(undefined, {
+  const { data: quotaData, refetch: refetchQuota } = trpc.contentFactory.getQuota.useQuery(undefined, {
     refetchInterval: 30000, // 每30秒刷新
   });
 
@@ -55,9 +60,24 @@ export default function Home() {
 
     // 检查配额
     if (quotaData && !quotaData.allowed) {
-      toast.error(
-        `每日配额已用完！您今天已使用 ${quotaData.limit} 次生成。配额将在 ${new Date(quotaData.resetAt).toLocaleString('zh-CN')} 重置。`
-      );
+      if (quotaData.isGuest) {
+        // 访客超限，引导登录
+        toast.error(
+          `访客每日配额已用完！您今天已使用 ${quotaData.limit} 次生成。\n\n登录后可获得每天 10 次的完整配额！`,
+          {
+            duration: 5000,
+            action: {
+              label: "立即登录",
+              onClick: () => window.location.href = getLoginUrl(),
+            },
+          }
+        );
+      } else {
+        // 登录用户超限
+        toast.error(
+          `每日配额已用完！您今天已使用 ${quotaData.limit} 次生成。配额将在 ${new Date(quotaData.resetAt).toLocaleString('zh-CN')} 重置。`
+        );
+      }
       return;
     }
 
@@ -74,6 +94,8 @@ export default function Home() {
       if (response.success) {
         setResult(response.data);
         toast.success("脚本生成成功！");
+        // 刷新配额显示
+        refetchQuota();
       } else {
         toast.error("生成失败，请重试");
       }
@@ -153,7 +175,17 @@ ${result.script}`;
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <CheckCircle2 className="h-5 w-5 text-primary" />
                   <span>
-                    今日剩余: {quotaData.remaining}/{quotaData.limit} 次
+                    {quotaData.isGuest ? "访客" : "用户"}今日剩余: {quotaData.remaining}/{quotaData.limit} 次
+                  </span>
+                </div>
+              )}
+              {quotaData && quotaData.isGuest && quotaData.remaining <= 1 && (
+                <div className="flex items-center gap-2 text-sm text-amber-600 dark:text-amber-400">
+                  <Sparkles className="h-5 w-5" />
+                  <span>
+                    <a href={getLoginUrl()} className="underline hover:text-amber-700 dark:hover:text-amber-300">
+                      登录后可获得10次/天配额
+                    </a>
                   </span>
                 </div>
               )}

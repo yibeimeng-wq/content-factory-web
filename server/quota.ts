@@ -7,25 +7,38 @@ import { checkAndNotifyUserMilestone } from "./userStats";
  * Quota configuration
  */
 export const QUOTA_CONFIG = {
-  // Free tier: 10 generations per day
-  FREE_DAILY_LIMIT: 10,
+  // Guest users (not logged in): 3 generations per day
+  GUEST_DAILY_LIMIT: 3,
+  // Logged in users: 10 generations per day
+  USER_DAILY_LIMIT: 10,
   // Time window: 24 hours in milliseconds
   TIME_WINDOW_MS: 24 * 60 * 60 * 1000,
 };
 
 /**
  * Check if user has remaining quota
+ * @param userId - User ID (negative for guests, positive for logged-in users)
+ * @param isGuest - Whether the user is a guest
  */
-export async function checkQuota(userId: number): Promise<{
+export async function checkQuota(
+  userId: number,
+  isGuest: boolean = false
+): Promise<{
   allowed: boolean;
   remaining: number;
   limit: number;
   resetAt: Date;
+  isGuest: boolean;
 }> {
   const db = await getDb();
   if (!db) {
     throw new Error("Database not available");
   }
+
+  // Determine daily limit based on user type
+  const dailyLimit = isGuest
+    ? QUOTA_CONFIG.GUEST_DAILY_LIMIT
+    : QUOTA_CONFIG.USER_DAILY_LIMIT;
 
   // Calculate time window start (24 hours ago)
   const windowStart = new Date(Date.now() - QUOTA_CONFIG.TIME_WINDOW_MS);
@@ -43,7 +56,7 @@ export async function checkQuota(userId: number): Promise<{
     );
 
   const usageCount = result[0]?.count || 0;
-  const remaining = Math.max(0, QUOTA_CONFIG.FREE_DAILY_LIMIT - usageCount);
+  const remaining = Math.max(0, dailyLimit - usageCount);
   const allowed = remaining > 0;
 
   // Calculate reset time (24 hours from now)
@@ -52,8 +65,9 @@ export async function checkQuota(userId: number): Promise<{
   return {
     allowed,
     remaining,
-    limit: QUOTA_CONFIG.FREE_DAILY_LIMIT,
+    limit: dailyLimit,
     resetAt,
+    isGuest,
   };
 }
 
