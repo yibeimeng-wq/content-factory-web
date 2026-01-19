@@ -16,6 +16,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sparkles, Video, Globe, Download, Loader2, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
+import { Link } from "wouter";
 
 export default function Home() {
   const [keyword, setKeyword] = useState("");
@@ -154,6 +155,16 @@ ${result.script}`;
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
               <Sparkles className="h-4 w-4" />
               <span>AI驱动的内容本地化工具</span>
+            </div>
+            
+            <div className="mb-6 flex items-center justify-center gap-4">
+              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                首页
+              </Link>
+              <span className="text-muted-foreground">·</span>
+              <Link href="/customer-profiles" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                目标客户
+              </Link>
             </div>
             
             <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
