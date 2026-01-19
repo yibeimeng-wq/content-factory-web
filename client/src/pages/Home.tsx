@@ -182,14 +182,7 @@ ${result.script}`;
                 <CheckCircle2 className="h-5 w-5 text-primary" />
                 <span>完全免费</span>
               </div>
-              {quotaData && (
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <CheckCircle2 className="h-5 w-5 text-primary" />
-                  <span>
-                    {quotaData.isGuest ? "访客" : "用户"}今日剩余: {quotaData.remaining}/{quotaData.limit} 次
-                  </span>
-                </div>
-              )}
+
               {quotaData && quotaData.isGuest && quotaData.remaining <= 0 && (
                 <div className="flex items-center gap-2 text-sm text-amber-600 dark:text-amber-400">
                   <Sparkles className="h-5 w-5" />
