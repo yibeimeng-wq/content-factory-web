@@ -396,9 +396,9 @@ ${result.script}`;
             {/* Customer Type 1: E-commerce */}
             <div className="flex flex-col gap-8 lg:flex-row">
               <div className="flex-1">
-                <Card className="overflow-hidden">
+                <Card className="overflow-hidden h-full">
                   <video 
-                    className="w-full aspect-video object-cover"
+                    className="w-full h-full object-cover"
                     controls
                     preload="metadata"
                   >
@@ -464,9 +464,9 @@ ${result.script}`;
             {/* Customer Type 2: Content Creators */}
             <div className="flex flex-col gap-8 lg:flex-row-reverse">
               <div className="flex-1">
-                <Card className="overflow-hidden">
+                <Card className="overflow-hidden h-full">
                   <video 
-                    className="w-full aspect-video object-cover"
+                    className="w-full h-full object-cover"
                     controls
                     preload="metadata"
                   >
@@ -532,9 +532,9 @@ ${result.script}`;
             {/* Customer Type 3: KOLs */}
             <div className="flex flex-col gap-8 lg:flex-row">
               <div className="flex-1">
-                <Card className="overflow-hidden">
+                <Card className="overflow-hidden h-full">
                   <video 
-                    className="w-full aspect-video object-cover"
+                    className="w-full h-full object-cover"
                     controls
                     preload="metadata"
                   >
