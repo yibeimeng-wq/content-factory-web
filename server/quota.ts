@@ -7,8 +7,8 @@ import { checkAndNotifyUserMilestone } from "./userStats";
  * Quota configuration
  */
 export const QUOTA_CONFIG = {
-  // Guest users (not logged in): 3 generations per day
-  GUEST_DAILY_LIMIT: 3,
+  // Guest users (not logged in): 1 generation per day
+  GUEST_DAILY_LIMIT: 1,
   // Logged in users: 10 generations per day
   USER_DAILY_LIMIT: 10,
   // Time window: 24 hours in milliseconds

@@ -190,7 +190,7 @@ ${result.script}`;
                   </span>
                 </div>
               )}
-              {quotaData && quotaData.isGuest && quotaData.remaining <= 1 && (
+              {quotaData && quotaData.isGuest && quotaData.remaining <= 0 && (
                 <div className="flex items-center gap-2 text-sm text-amber-600 dark:text-amber-400">
                   <Sparkles className="h-5 w-5" />
                   <span>
