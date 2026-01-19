@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Sparkles, Video, Globe, Download, Loader2, CheckCircle2 } from "lucide-react";
+import { Sparkles, Video, Globe, Download, Loader2, CheckCircle2, TrendingUp, Users, Megaphone } from "lucide-react";
 import { toast } from "sonner";
 import { Link } from "wouter";
 
@@ -158,13 +158,13 @@ ${result.script}`;
             </div>
             
             <div className="mb-6 flex items-center justify-center gap-4">
-              <Link href="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 首页
-              </Link>
+              </a>
               <span className="text-muted-foreground">·</span>
-              <Link href="/customer-profiles" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="#target-customers" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 目标客户
-              </Link>
+              </a>
             </div>
             
             <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
@@ -382,6 +382,248 @@ ${result.script}`;
                 )}
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </div>
+
+      {/* Target Customers Section */}
+      <div id="target-customers" className="border-t bg-gradient-to-b from-background to-muted/20 py-16">
+        <div className="container">
+          <div className="mx-auto max-w-3xl text-center mb-12">
+            <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
+              我们服务的三类客户
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Content Factory 帮助不同类型的用户突破语言和文化障碍，
+              创作能够引起全球共鸣的本地化内容
+            </p>
+          </div>
+
+          <div className="space-y-16">
+            {/* Customer Type 1: E-commerce */}
+            <div className="flex flex-col gap-8 lg:flex-row">
+              <div className="flex-1">
+                <Card className="overflow-hidden h-full">
+                  <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-1">
+                    <div className="aspect-video bg-background flex items-center justify-center">
+                      <div className="text-center p-8">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-white mb-4">
+                          <TrendingUp className="h-8 w-8" />
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          上传跨境电商客户案例视频
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          视频格式: MP4, WebM | 最大尺寸: 50MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 text-white">
+                  <TrendingUp className="h-8 w-8" />
+                  <div>
+                    <h3 className="text-xl font-bold">跨境电商 & 产品推广者</h3>
+                    <p className="text-sm opacity-90">Global Product Promoters</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground">
+                  想要将产品推向全球市场的商家和品牌方，需要创作适合不同地区文化的营销内容。
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm">痛点与挑战</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2 text-xs">
+                      <div className="flex items-start gap-2">
+                        <span className="text-destructive mt-0.5">❌</span>
+                        <span>不了解目标市场的文化习惯</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-destructive mt-0.5">❌</span>
+                        <span>缺乏本地化内容创作能力</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-destructive mt-0.5">❌</span>
+                        <span>营销素材翻译生硬</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm">我们的解决方案</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2 text-xs">
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✅</span>
+                        <span>快速了解目标市场趋势</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✅</span>
+                        <span>生成符合当地文化的脚本</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✅</span>
+                        <span>降低内容本地化成本</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
+
+            {/* Customer Type 2: Content Creators */}
+            <div className="flex flex-col gap-8 lg:flex-row-reverse">
+              <div className="flex-1">
+                <Card className="overflow-hidden h-full">
+                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-1">
+                    <div className="aspect-video bg-background flex items-center justify-center">
+                      <div className="text-center p-8">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-white mb-4">
+                          <Users className="h-8 w-8" />
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          上传内容创作者成功案例视频
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          视频格式: MP4, WebM | 最大尺寸: 50MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+                  <Users className="h-8 w-8" />
+                  <div>
+                    <h3 className="text-xl font-bold">内容创作者</h3>
+                    <p className="text-sm opacity-90">Content Creators</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground">
+                  想要创作热门内容、获取流量和广告收入的视频创作者和自媒体从业者。
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm">痛点与挑战</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2 text-xs">
+                      <div className="flex items-start gap-2">
+                        <span className="text-destructive mt-0.5">❌</span>
+                        <span>不知道什么内容受欢迎</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-destructive mt-0.5">❌</span>
+                        <span>创意枯竭，难以持续产出</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-destructive mt-0.5">❌</span>
+                        <span>内容同质化严重</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm">我们的解决方案</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2 text-xs">
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✅</span>
+                        <span>发现全球热门视频创意</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✅</span>
+                        <span>快速改编为本地化内容</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✅</span>
+                        <span>提高内容产出效率</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
+
+            {/* Customer Type 3: KOLs */}
+            <div className="flex flex-col gap-8 lg:flex-row">
+              <div className="flex-1">
+                <Card className="overflow-hidden h-full">
+                  <div className="bg-gradient-to-br from-orange-500 to-red-500 p-1">
+                    <div className="aspect-video bg-background flex items-center justify-center">
+                      <div className="text-center p-8">
+                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-orange-500 to-red-500 text-white mb-4">
+                          <Megaphone className="h-8 w-8" />
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                          上传KOL成功出海案例视频
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          视频格式: MP4, WebM | 最大尺寸: 50MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+              <div className="flex-1 space-y-4">
+                <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 text-white">
+                  <Megaphone className="h-8 w-8" />
+                  <div>
+                    <h3 className="text-xl font-bold">KOL & 意见领袖</h3>
+                    <p className="text-sm opacity-90">Influencers & Opinion Leaders</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground">
+                  想要扩大全球影响力、吸引国际粉丝的网红、博主和意见领袖。
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm">痛点与挑战</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2 text-xs">
+                      <div className="flex items-start gap-2">
+                        <span className="text-destructive mt-0.5">❌</span>
+                        <span>粉丝群体局限在单一市场</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-destructive mt-0.5">❌</span>
+                        <span>不了解如何吸引国际观众</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-destructive mt-0.5">❌</span>
+                        <span>语言和文化障碍限制影响力</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-sm">我们的解决方案</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-2 text-xs">
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✅</span>
+                        <span>了解不同市场的受众喜好</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✅</span>
+                        <span>创作引起全球共鸣的内容</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="text-green-500 mt-0.5">✅</span>
+                        <span>快速扩展国际粉丝群体</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
