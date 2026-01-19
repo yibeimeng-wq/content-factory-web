@@ -397,21 +397,14 @@ ${result.script}`;
             <div className="flex flex-col gap-8 lg:flex-row">
               <div className="flex-1">
                 <Card className="overflow-hidden h-full">
-                  <div className="bg-gradient-to-br from-blue-500 to-cyan-500 p-1">
-                    <div className="aspect-video bg-background flex items-center justify-center">
-                      <div className="text-center p-8">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 text-white mb-4">
-                          <TrendingUp className="h-8 w-8" />
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          上传跨境电商客户案例视频
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-2">
-                          视频格式: MP4, WebM | 最大尺寸: 50MB
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                  <video 
+                    className="w-full h-full object-cover"
+                    controls
+                    preload="metadata"
+                  >
+                    <source src="/videos/ContentFactory_GlobalMotors.mp4" type="video/mp4" />
+                    您的浏览器不支持视频播放。
+                  </video>
                 </Card>
               </div>
               <div className="flex-1 space-y-4">
@@ -472,21 +465,14 @@ ${result.script}`;
             <div className="flex flex-col gap-8 lg:flex-row-reverse">
               <div className="flex-1">
                 <Card className="overflow-hidden h-full">
-                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-1">
-                    <div className="aspect-video bg-background flex items-center justify-center">
-                      <div className="text-center p-8">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 text-white mb-4">
-                          <Users className="h-8 w-8" />
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          上传内容创作者成功案例视频
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-2">
-                          视频格式: MP4, WebM | 最大尺寸: 50MB
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                  <video 
+                    className="w-full h-full object-cover"
+                    controls
+                    preload="metadata"
+                  >
+                    <source src="/videos/ContentFactory_contentcreators.mp4" type="video/mp4" />
+                    您的浏览器不支持视频播放。
+                  </video>
                 </Card>
               </div>
               <div className="flex-1 space-y-4">
@@ -547,21 +533,14 @@ ${result.script}`;
             <div className="flex flex-col gap-8 lg:flex-row">
               <div className="flex-1">
                 <Card className="overflow-hidden h-full">
-                  <div className="bg-gradient-to-br from-orange-500 to-red-500 p-1">
-                    <div className="aspect-video bg-background flex items-center justify-center">
-                      <div className="text-center p-8">
-                        <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-orange-500 to-red-500 text-white mb-4">
-                          <Megaphone className="h-8 w-8" />
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          上传KOL成功出海案例视频
-                        </p>
-                        <p className="text-xs text-muted-foreground mt-2">
-                          视频格式: MP4, WebM | 最大尺寸: 50MB
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                  <video 
+                    className="w-full h-full object-cover"
+                    controls
+                    preload="metadata"
+                  >
+                    <source src="/videos/ContentFactory_influencers.mp4" type="video/mp4" />
+                    您的浏览器不支持视频播放。
+                  </video>
                 </Card>
               </div>
               <div className="flex-1 space-y-4">
