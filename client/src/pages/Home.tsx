@@ -398,6 +398,7 @@ ${result.script}`;
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg group">
                   <video 
+                    id="video-ecommerce"
                     className="w-full object-contain bg-black"
                     style={{ aspectRatio: '9/16' }}
                     controls
@@ -406,7 +407,19 @@ ${result.script}`;
                     <source src="/videos/ContentFactory_GlobalMotors.mp4" type="video/mp4" />
                     您的浏览器不支持视频播放。
                   </video>
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                    onClick={() => {
+                      const video = document.getElementById('video-ecommerce') as HTMLVideoElement;
+                      if (video) {
+                        if (video.paused) {
+                          video.play();
+                        } else {
+                          video.pause();
+                        }
+                      }
+                    }}
+                  >
                     <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
                       <svg className="w-8 h-8 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
@@ -469,6 +482,7 @@ ${result.script}`;
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg group">
                   <video 
+                    id="video-creators"
                     className="w-full object-contain bg-black"
                     style={{ aspectRatio: '9/16' }}
                     controls
@@ -477,7 +491,19 @@ ${result.script}`;
                     <source src="/videos/ContentFactory_contentcreators.mp4" type="video/mp4" />
                     您的浏览器不支持视频播放。
                   </video>
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                    onClick={() => {
+                      const video = document.getElementById('video-creators') as HTMLVideoElement;
+                      if (video) {
+                        if (video.paused) {
+                          video.play();
+                        } else {
+                          video.pause();
+                        }
+                      }
+                    }}
+                  >
                     <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
                       <svg className="w-8 h-8 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
@@ -540,6 +566,7 @@ ${result.script}`;
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg group">
                   <video 
+                    id="video-kols"
                     className="w-full object-contain bg-black"
                     style={{ aspectRatio: '9/16' }}
                     controls
@@ -548,7 +575,19 @@ ${result.script}`;
                     <source src="/videos/ContentFactory_influencers.mp4" type="video/mp4" />
                     您的浏览器不支持视频播放。
                   </video>
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  <div 
+                    className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                    onClick={() => {
+                      const video = document.getElementById('video-kols') as HTMLVideoElement;
+                      if (video) {
+                        if (video.paused) {
+                          video.play();
+                        } else {
+                          video.pause();
+                        }
+                      }
+                    }}
+                  >
                     <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
                       <svg className="w-8 h-8 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
