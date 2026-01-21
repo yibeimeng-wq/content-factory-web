@@ -392,38 +392,34 @@ ${result.script}`;
             </p>
           </div>
 
-          <div className="space-y-16">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Customer Type 1: E-commerce */}
-            <div className="flex flex-col gap-8 lg:flex-row">
-              <div className="flex-1">
-                <Card className="overflow-hidden h-full">
+            <Card className="flex flex-col">
+              <CardHeader className="p-0">
+                <div className="overflow-hidden rounded-t-lg">
                   <video 
-                    className="w-full h-full object-cover"
+                    className="w-full aspect-video object-cover"
                     controls
                     preload="metadata"
                   >
                     <source src="/videos/ContentFactory_GlobalMotors.mp4" type="video/mp4" />
                     您的浏览器不支持视频播放。
                   </video>
-                </Card>
-              </div>
-              <div className="flex-1 space-y-4">
-                <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 text-white">
-                  <TrendingUp className="h-8 w-8" />
-                  <div>
-                    <h3 className="text-xl font-bold">跨境电商 & 产品推广者</h3>
-                    <p className="text-sm opacity-90">Global Product Promoters</p>
+                </div>
+              </CardHeader>
+              <CardContent className="flex-1 p-6 space-y-4">
+                <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 text-white w-full">
+                  <TrendingUp className="h-6 w-6 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold">跨境电商 & 产品推广者</h3>
+                    <p className="text-xs opacity-90">Global Product Promoters</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground">
-                  想要将产品推向全球市场的商家和品牌方，需要创作适合不同地区文化的营销内容。
-                </p>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Card>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-sm">痛点与挑战</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-2 text-xs">
+                
+                <div className="space-y-3">
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">痛点与挑战</h4>
+                    <div className="space-y-1.5 text-xs text-muted-foreground">
                       <div className="flex items-start gap-2">
                         <span className="text-destructive mt-0.5">❌</span>
                         <span>不了解目标市场的文化习惯</span>
@@ -436,13 +432,12 @@ ${result.script}`;
                         <span className="text-destructive mt-0.5">❌</span>
                         <span>营销素材翻译生硬</span>
                       </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-sm">我们的解决方案</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-2 text-xs">
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">我们的解决方案</h4>
+                    <div className="space-y-1.5 text-xs text-muted-foreground">
                       <div className="flex items-start gap-2">
                         <span className="text-green-500 mt-0.5">✅</span>
                         <span>快速了解目标市场趋势</span>
@@ -455,43 +450,39 @@ ${result.script}`;
                         <span className="text-green-500 mt-0.5">✅</span>
                         <span>降低内容本地化成本</span>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Customer Type 2: Content Creators */}
-            <div className="flex flex-col gap-8 lg:flex-row-reverse">
-              <div className="flex-1">
-                <Card className="overflow-hidden h-full">
+            <Card className="flex flex-col">
+              <CardHeader className="p-0">
+                <div className="overflow-hidden rounded-t-lg">
                   <video 
-                    className="w-full h-full object-cover"
+                    className="w-full aspect-video object-cover"
                     controls
                     preload="metadata"
                   >
                     <source src="/videos/ContentFactory_contentcreators.mp4" type="video/mp4" />
                     您的浏览器不支持视频播放。
                   </video>
-                </Card>
-              </div>
-              <div className="flex-1 space-y-4">
-                <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-                  <Users className="h-8 w-8" />
-                  <div>
-                    <h3 className="text-xl font-bold">内容创作者</h3>
-                    <p className="text-sm opacity-90">Content Creators</p>
+                </div>
+              </CardHeader>
+              <CardContent className="flex-1 p-6 space-y-4">
+                <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 text-white w-full">
+                  <Users className="h-6 w-6 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold">内容创作者</h3>
+                    <p className="text-xs opacity-90">Content Creators</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground">
-                  想要创作热门内容、获取流量和广告收入的视频创作者和自媒体从业者。
-                </p>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Card>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-sm">痛点与挑战</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-2 text-xs">
+                
+                <div className="space-y-3">
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">痛点与挑战</h4>
+                    <div className="space-y-1.5 text-xs text-muted-foreground">
                       <div className="flex items-start gap-2">
                         <span className="text-destructive mt-0.5">❌</span>
                         <span>不知道什么内容受欢迎</span>
@@ -504,13 +495,12 @@ ${result.script}`;
                         <span className="text-destructive mt-0.5">❌</span>
                         <span>内容同质化严重</span>
                       </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-sm">我们的解决方案</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-2 text-xs">
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">我们的解决方案</h4>
+                    <div className="space-y-1.5 text-xs text-muted-foreground">
                       <div className="flex items-start gap-2">
                         <span className="text-green-500 mt-0.5">✅</span>
                         <span>发现全球热门视频创意</span>
@@ -523,43 +513,39 @@ ${result.script}`;
                         <span className="text-green-500 mt-0.5">✅</span>
                         <span>提高内容产出效率</span>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
 
             {/* Customer Type 3: KOLs */}
-            <div className="flex flex-col gap-8 lg:flex-row">
-              <div className="flex-1">
-                <Card className="overflow-hidden h-full">
+            <Card className="flex flex-col">
+              <CardHeader className="p-0">
+                <div className="overflow-hidden rounded-t-lg">
                   <video 
-                    className="w-full h-full object-cover"
+                    className="w-full aspect-video object-cover"
                     controls
                     preload="metadata"
                   >
                     <source src="/videos/ContentFactory_influencers.mp4" type="video/mp4" />
                     您的浏览器不支持视频播放。
                   </video>
-                </Card>
-              </div>
-              <div className="flex-1 space-y-4">
-                <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 text-white">
-                  <Megaphone className="h-8 w-8" />
-                  <div>
-                    <h3 className="text-xl font-bold">KOL & 意见领袖</h3>
-                    <p className="text-sm opacity-90">Influencers & Opinion Leaders</p>
+                </div>
+              </CardHeader>
+              <CardContent className="flex-1 p-6 space-y-4">
+                <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 text-white w-full">
+                  <Megaphone className="h-6 w-6 flex-shrink-0" />
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold">KOL & 意见领袖</h3>
+                    <p className="text-xs opacity-90">Influencers & Opinion Leaders</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground">
-                  想要扩大全球影响力、吸引国际粉丝的网红、博主和意见领袖。
-                </p>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <Card>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-sm">痛点与挑战</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-2 text-xs">
+                
+                <div className="space-y-3">
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">痛点与挑战</h4>
+                    <div className="space-y-1.5 text-xs text-muted-foreground">
                       <div className="flex items-start gap-2">
                         <span className="text-destructive mt-0.5">❌</span>
                         <span>粉丝群体局限在单一市场</span>
@@ -572,13 +558,12 @@ ${result.script}`;
                         <span className="text-destructive mt-0.5">❌</span>
                         <span>语言和文化障碍限制影响力</span>
                       </div>
-                    </CardContent>
-                  </Card>
-                  <Card>
-                    <CardHeader className="pb-3">
-                      <CardTitle className="text-sm">我们的解决方案</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-2 text-xs">
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <h4 className="text-sm font-semibold mb-2">我们的解决方案</h4>
+                    <div className="space-y-1.5 text-xs text-muted-foreground">
                       <div className="flex items-start gap-2">
                         <span className="text-green-500 mt-0.5">✅</span>
                         <span>了解不同市场的受众喜好</span>
@@ -591,11 +576,11 @@ ${result.script}`;
                         <span className="text-green-500 mt-0.5">✅</span>
                         <span>快速扩展国际粉丝群体</span>
                       </div>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
