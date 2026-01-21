@@ -424,7 +424,7 @@ ${result.script}`;
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex-1 p-6 pt-4 space-y-4">
+              <CardContent className="flex-1 p-6 pt-0 space-y-4">
                 <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 text-white w-full">
                   <TrendingUp className="h-6 w-6 flex-shrink-0" />
                   <div className="flex-1">
@@ -503,7 +503,7 @@ ${result.script}`;
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex-1 p-6 pt-4 space-y-4">
+              <CardContent className="flex-1 p-6 pt-0 space-y-4">
                 <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 text-white w-full">
                   <Users className="h-6 w-6 flex-shrink-0" />
                   <div className="flex-1">
@@ -582,7 +582,7 @@ ${result.script}`;
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="flex-1 p-6 pt-4 space-y-4">
+              <CardContent className="flex-1 p-6 pt-0 space-y-4">
                 <div className="inline-flex items-center gap-3 p-3 rounded-lg bg-gradient-to-br from-orange-500 to-red-500 text-white w-full">
                   <Megaphone className="h-6 w-6 flex-shrink-0" />
                   <div className="flex-1">
