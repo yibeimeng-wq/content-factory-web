@@ -398,7 +398,8 @@ ${result.script}`;
               <CardHeader className="p-0">
                 <div className="overflow-hidden rounded-t-lg">
                   <video 
-                    className="w-full aspect-video object-cover"
+                    className="w-full object-contain bg-black"
+                    style={{ aspectRatio: '9/16' }}
                     controls
                     preload="metadata"
                   >
@@ -461,7 +462,8 @@ ${result.script}`;
               <CardHeader className="p-0">
                 <div className="overflow-hidden rounded-t-lg">
                   <video 
-                    className="w-full aspect-video object-cover"
+                    className="w-full object-contain bg-black"
+                    style={{ aspectRatio: '9/16' }}
                     controls
                     preload="metadata"
                   >
@@ -524,7 +526,8 @@ ${result.script}`;
               <CardHeader className="p-0">
                 <div className="overflow-hidden rounded-t-lg">
                   <video 
-                    className="w-full aspect-video object-cover"
+                    className="w-full object-contain bg-black"
+                    style={{ aspectRatio: '9/16' }}
                     controls
                     preload="metadata"
                   >
