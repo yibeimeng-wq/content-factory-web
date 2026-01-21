@@ -44,3 +44,24 @@ export const usageRecords = mysqlTable("usageRecords", {
 
 export type UsageRecord = typeof usageRecords.$inferSelect;
 export type InsertUsageRecord = typeof usageRecords.$inferInsert;
+
+/**
+ * Video playback tracking table.
+ * Tracks which customer type videos users watch.
+ */
+export const videoPlaybacks = mysqlTable("videoPlaybacks", {
+  id: int("id").autoincrement().primaryKey(),
+  /** User ID (negative for guests using browser fingerprint) */
+  userId: int("userId").notNull(),
+  /** Video identifier: 'ecommerce', 'creators', 'kols' */
+  videoType: varchar("videoType", { length: 50 }).notNull(),
+  /** Play duration in seconds */
+  duration: int("duration"),
+  /** Whether the video was played to completion */
+  completed: int("completed").default(0).notNull(),
+  /** Timestamp of the playback */
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type VideoPlayback = typeof videoPlaybacks.$inferSelect;
+export type InsertVideoPlayback = typeof videoPlaybacks.$inferInsert;

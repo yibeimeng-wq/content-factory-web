@@ -17,6 +17,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Sparkles, Video, Globe, Download, Loader2, CheckCircle2, TrendingUp, Users, Megaphone } from "lucide-react";
 import { toast } from "sonner";
 import { Link } from "wouter";
+import { TrackedVideo } from "@/components/TrackedVideo";
 
 export default function Home() {
   const [keyword, setKeyword] = useState("");
@@ -397,24 +398,11 @@ ${result.script}`;
             <Card className="flex flex-col">
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg group">
-                  <video 
-                    id="video-ecommerce"
-                    className="w-full object-contain bg-black"
-                    style={{ aspectRatio: '9/16' }}
-                    controls
-                    preload="metadata"
-                    onPlay={(e) => {
-                      const overlay = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (overlay) overlay.style.display = 'none';
-                    }}
-                    onPause={(e) => {
-                      const overlay = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (overlay) overlay.style.display = 'flex';
-                    }}
-                  >
-                    <source src="/videos/ContentFactory_GlobalMotors.mp4" type="video/mp4" />
-                    您的浏览器不支持视频播放。
-                  </video>
+                  <TrackedVideo 
+                    videoId="video-ecommerce"
+                    videoType="ecommerce"
+                    videoSrc="/videos/ContentFactory_GlobalMotors.mp4"
+                  />
                   <div 
                     className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                     onClick={() => {
@@ -489,24 +477,11 @@ ${result.script}`;
             <Card className="flex flex-col">
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg group">
-                  <video 
-                    id="video-creators"
-                    className="w-full object-contain bg-black"
-                    style={{ aspectRatio: '9/16' }}
-                    controls
-                    preload="metadata"
-                    onPlay={(e) => {
-                      const overlay = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (overlay) overlay.style.display = 'none';
-                    }}
-                    onPause={(e) => {
-                      const overlay = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (overlay) overlay.style.display = 'flex';
-                    }}
-                  >
-                    <source src="/videos/ContentFactory_contentcreators.mp4" type="video/mp4" />
-                    您的浏览器不支持视频播放。
-                  </video>
+                  <TrackedVideo 
+                    videoId="video-creators"
+                    videoType="creators"
+                    videoSrc="/videos/ContentFactory_contentcreators.mp4"
+                  />
                   <div 
                     className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                     onClick={() => {
@@ -581,24 +556,11 @@ ${result.script}`;
             <Card className="flex flex-col">
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg group">
-                  <video 
-                    id="video-kols"
-                    className="w-full object-contain bg-black"
-                    style={{ aspectRatio: '9/16' }}
-                    controls
-                    preload="metadata"
-                    onPlay={(e) => {
-                      const overlay = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (overlay) overlay.style.display = 'none';
-                    }}
-                    onPause={(e) => {
-                      const overlay = e.currentTarget.nextElementSibling as HTMLElement;
-                      if (overlay) overlay.style.display = 'flex';
-                    }}
-                  >
-                    <source src="/videos/ContentFactory_influencers.mp4" type="video/mp4" />
-                    您的浏览器不支持视频播放。
-                  </video>
+                  <TrackedVideo 
+                    videoId="video-kols"
+                    videoType="kols"
+                    videoSrc="/videos/ContentFactory_influencers.mp4"
+                  />
                   <div 
                     className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                     onClick={() => {
