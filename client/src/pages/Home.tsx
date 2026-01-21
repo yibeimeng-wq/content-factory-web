@@ -395,7 +395,7 @@ ${result.script}`;
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {/* Customer Type 1: E-commerce */}
-            <Card className="flex flex-col">
+            <Card className="flex flex-col bg-transparent border-none shadow-none">
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg group">
                   <TrackedVideo 
@@ -474,7 +474,7 @@ ${result.script}`;
             </Card>
 
             {/* Customer Type 2: Content Creators */}
-            <Card className="flex flex-col">
+            <Card className="flex flex-col bg-transparent border-none shadow-none">
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg group">
                   <TrackedVideo 
@@ -553,7 +553,7 @@ ${result.script}`;
             </Card>
 
             {/* Customer Type 3: KOLs */}
-            <Card className="flex flex-col">
+            <Card className="flex flex-col bg-transparent border-none shadow-none">
               <CardHeader className="p-0">
                 <div className="relative overflow-hidden rounded-t-lg group">
                   <TrackedVideo 
