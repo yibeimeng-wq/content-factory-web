@@ -396,7 +396,7 @@ ${result.script}`;
             {/* Customer Type 1: E-commerce */}
             <Card className="flex flex-col">
               <CardHeader className="p-0">
-                <div className="overflow-hidden rounded-t-lg">
+                <div className="relative overflow-hidden rounded-t-lg group">
                   <video 
                     className="w-full object-contain bg-black"
                     style={{ aspectRatio: '9/16' }}
@@ -406,6 +406,13 @@ ${result.script}`;
                     <source src="/videos/ContentFactory_GlobalMotors.mp4" type="video/mp4" />
                     您的浏览器不支持视频播放。
                   </video>
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+                      <svg className="w-8 h-8 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent className="flex-1 p-6 space-y-4">
@@ -460,7 +467,7 @@ ${result.script}`;
             {/* Customer Type 2: Content Creators */}
             <Card className="flex flex-col">
               <CardHeader className="p-0">
-                <div className="overflow-hidden rounded-t-lg">
+                <div className="relative overflow-hidden rounded-t-lg group">
                   <video 
                     className="w-full object-contain bg-black"
                     style={{ aspectRatio: '9/16' }}
@@ -470,6 +477,13 @@ ${result.script}`;
                     <source src="/videos/ContentFactory_contentcreators.mp4" type="video/mp4" />
                     您的浏览器不支持视频播放。
                   </video>
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+                      <svg className="w-8 h-8 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent className="flex-1 p-6 space-y-4">
@@ -524,7 +538,7 @@ ${result.script}`;
             {/* Customer Type 3: KOLs */}
             <Card className="flex flex-col">
               <CardHeader className="p-0">
-                <div className="overflow-hidden rounded-t-lg">
+                <div className="relative overflow-hidden rounded-t-lg group">
                   <video 
                     className="w-full object-contain bg-black"
                     style={{ aspectRatio: '9/16' }}
@@ -534,6 +548,13 @@ ${result.script}`;
                     <source src="/videos/ContentFactory_influencers.mp4" type="video/mp4" />
                     您的浏览器不支持视频播放。
                   </video>
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                    <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+                      <svg className="w-8 h-8 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </CardHeader>
               <CardContent className="flex-1 p-6 space-y-4">
