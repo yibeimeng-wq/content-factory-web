@@ -18,8 +18,12 @@ import { Sparkles, Video, Globe, Download, Loader2, CheckCircle2, TrendingUp, Us
 import { toast } from "sonner";
 import { Link } from "wouter";
 import { TrackedVideo } from "@/components/TrackedVideo";
+import { useTrafficTracking } from "@/hooks/useTrafficTracking";
 
 export default function Home() {
+  // Track visitor traffic source
+  useTrafficTracking();
+
   const [keyword, setKeyword] = useState("");
   const [targetMarket, setTargetMarket] = useState("brazil");
   const [targetLanguage, setTargetLanguage] = useState("portuguese-br");

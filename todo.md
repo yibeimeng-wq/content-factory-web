@@ -108,3 +108,10 @@
 - [x] 检查Card组件的背景色设置
 - [x] 将Card背景改为透明或移除背景
 - [x] 确保不再出现白色区域
+
+## 新功能：访问来源追踪系统
+- [x] 创建trafficSources数据库表记录访问来源
+- [x] 实现前端来源检测（referrer、UTM参数）
+- [x] 创建后端追踪API（trackVisit、getTrafficStats）
+- [x] 创建来源分析仪表板页面
+- [x] 编写测试验证来源追踪功能

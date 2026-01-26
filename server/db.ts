@@ -90,3 +90,76 @@ export async function getUserByOpenId(openId: string) {
 }
 
 // TODO: add feature queries here as your schema grows.
+
+import { InsertTrafficSource, trafficSources } from "../drizzle/schema";
+import { desc, sql } from "drizzle-orm";
+
+/**
+ * Record a traffic source visit
+ */
+export async function recordTrafficSource(data: InsertTrafficSource): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot record traffic source: database not available");
+    return;
+  }
+
+  try {
+    await db.insert(trafficSources).values(data);
+  } catch (error) {
+    console.error("[Database] Failed to record traffic source:", error);
+    throw error;
+  }
+}
+
+/**
+ * Get traffic source statistics
+ */
+export async function getTrafficStats(limit: number = 100) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get traffic stats: database not available");
+    return { recent: [], bySourceType: [], byUtmSource: [] };
+  }
+
+  try {
+    // Recent visits
+    const recent = await db
+      .select()
+      .from(trafficSources)
+      .orderBy(desc(trafficSources.createdAt))
+      .limit(limit);
+
+    // Group by source type
+    const bySourceType = await db
+      .select({
+        sourceType: trafficSources.sourceType,
+        count: sql<number>`COUNT(*)`,
+      })
+      .from(trafficSources)
+      .groupBy(trafficSources.sourceType)
+      .orderBy(desc(sql`COUNT(*)`));
+
+    // Group by UTM source (for campaign tracking)
+    const byUtmSource = await db
+      .select({
+        utmSource: trafficSources.utmSource,
+        utmMedium: trafficSources.utmMedium,
+        utmCampaign: trafficSources.utmCampaign,
+        count: sql<number>`COUNT(*)`,
+      })
+      .from(trafficSources)
+      .where(sql`${trafficSources.utmSource} IS NOT NULL`)
+      .groupBy(
+        trafficSources.utmSource,
+        trafficSources.utmMedium,
+        trafficSources.utmCampaign
+      )
+      .orderBy(desc(sql`COUNT(*)`));
+
+    return { recent, bySourceType, byUtmSource };
+  } catch (error) {
+    console.error("[Database] Failed to get traffic stats:", error);
+    throw error;
+  }
+}

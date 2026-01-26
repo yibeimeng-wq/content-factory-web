@@ -65,3 +65,32 @@ export const videoPlaybacks = mysqlTable("videoPlaybacks", {
 
 export type VideoPlayback = typeof videoPlaybacks.$inferSelect;
 export type InsertVideoPlayback = typeof videoPlaybacks.$inferInsert;
+
+/**
+ * Traffic source tracking table.
+ * Tracks where visitors come from (search engines, social media, direct, referrals, etc.)
+ */
+export const trafficSources = mysqlTable("trafficSources", {
+  id: int("id").autoincrement().primaryKey(),
+  /** User ID (negative for guests using browser fingerprint) */
+  userId: int("userId").notNull(),
+  /** Source type: 'direct', 'search', 'social', 'referral', 'campaign' */
+  sourceType: varchar("sourceType", { length: 50 }).notNull(),
+  /** Referrer URL (where the visitor came from) */
+  referrer: text("referrer"),
+  /** UTM source parameter */
+  utmSource: varchar("utmSource", { length: 100 }),
+  /** UTM medium parameter */
+  utmMedium: varchar("utmMedium", { length: 100 }),
+  /** UTM campaign parameter */
+  utmCampaign: varchar("utmCampaign", { length: 100 }),
+  /** Landing page URL */
+  landingPage: text("landingPage"),
+  /** User agent string */
+  userAgent: text("userAgent"),
+  /** Timestamp of the visit */
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type TrafficSource = typeof trafficSources.$inferSelect;
+export type InsertTrafficSource = typeof trafficSources.$inferInsert;
