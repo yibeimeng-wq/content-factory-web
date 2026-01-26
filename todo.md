@@ -115,3 +115,9 @@
 - [x] 创建后端追踪API（trackVisit、getTrafficStats）
 - [x] 创建来源分析仪表板页面
 - [x] 编写测试验证来源追踪功能
+
+## 修复：流量追踪API调用失败
+- [x] 优化useTrafficTracking hook的错误处理
+- [x] 添加静默失败机制（追踪失败不影响用户体验）
+- [x] 检查服务器端API响应
+- [x] 测试修复后的功能
