@@ -38,6 +38,13 @@ export default function Home() {
     refetchInterval: 30000, // 每30秒刷新
   });
 
+  // 退出登录
+  const logoutMutation = trpc.auth.logout.useMutation({
+    onSuccess: () => {
+      window.location.href = '/';
+    },
+  });
+
   // 市场和语言的映射关系
   const marketLanguageMap: Record<string, string> = {
     "brazil": "portuguese-br",
@@ -200,7 +207,7 @@ ${result.script}`;
                     size="sm"
                     onClick={() => {
                       if (confirm('确定要退出登录吗？')) {
-                        window.location.href = '/api/oauth/logout';
+                        logoutMutation.mutate();
                       }
                     }}
                   >
