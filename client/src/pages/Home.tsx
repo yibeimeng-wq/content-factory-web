@@ -38,6 +38,16 @@ export default function Home() {
     refetchInterval: 30000, // 每30秒刷新
   });
 
+  // 市场和语言的映射关系
+  const marketLanguageMap: Record<string, string> = {
+    "brazil": "portuguese-br",
+    "mexico": "spanish-mx",
+    "indonesia": "indonesian",
+    "thailand": "thai",
+    "vietnam": "vietnamese",
+    "philippines": "filipino",
+  };
+
   const markets = [
     { value: "brazil", label: "巴西 (Brazil)" },
     { value: "mexico", label: "墨西哥 (Mexico)" },
@@ -55,6 +65,15 @@ export default function Home() {
     { value: "vietnamese", label: "越南语" },
     { value: "filipino", label: "菲律宾语" },
   ];
+
+  // 处理市场变化，自动更新语言
+  const handleMarketChange = (market: string) => {
+    setTargetMarket(market);
+    const correspondingLanguage = marketLanguageMap[market];
+    if (correspondingLanguage) {
+      setTargetLanguage(correspondingLanguage);
+    }
+  };
 
   const generateMutation = trpc.contentFactory.generate.useMutation();
 
@@ -242,7 +261,7 @@ ${result.script}`;
                   <Label htmlFor="market">目标市场</Label>
                   <Select
                     value={targetMarket}
-                    onValueChange={setTargetMarket}
+                    onValueChange={handleMarketChange}
                     disabled={generating}
                   >
                     <SelectTrigger id="market">
