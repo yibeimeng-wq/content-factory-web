@@ -1,0 +1,8 @@
+{
+  "query": "SELECT \n  DATE(createdAt) as date,\n  userId,\n  fingerprint,\n  COUNT(*) as usage_count\nFROM content_generations\nWHERE DATE(createdAt) = CURDATE()\nGROUP BY DATE(createdAt), userId, fingerprint\nORDER BY usage_count DESC\nLIMIT 10;",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user pK41xiw7tjGYRtg.root --database iSrVAz2EiiDJjP2QNFFrCL --execute SELECT \n  DATE(createdAt) as date,\n  userId,\n  fingerprint,\n  COUNT(*) as usage_count\nFROM content_generations\nWHERE DATE(createdAt) = CURDATE()\nGROUP BY DATE(createdAt), userId, fingerprint\nORDER BY usage_count DESC\nLIMIT 10;",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1146 (42S02) at line 1: Table 'isrvaz2eiidjjp2qnffrcl.content_generations' doesn't exist"
+  ]
+}

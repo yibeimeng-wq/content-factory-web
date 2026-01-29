@@ -174,7 +174,54 @@ ${result.script}`;
       <div className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM4ODg4ODgiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE0YzAtMS4xMDUuODk1LTIgMi0yaDJjMS4xMDUgMCAyIC44OTUgMiAydjJjMCAxLjEwNS0uODk1IDItMiAyaC0yYy0xLjEwNSAwLTItLjg5NS0yLTJ2LTJ6TTEyIDM2YzAtMS4xMDUuODk1LTIgMi0yaDJjMS4xMDUgMCAyIC44OTUgMiAydjJjMCAxLjEwNS0uODk1IDItMiAyaC0yYy0xLjEwNSAwLTItLjg5NS0yLTJ2LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-40"></div>
         
-        <div className="container relative py-24 md:py-32">
+        {/* Top Navigation Bar */}
+        <div className="container relative pt-6">
+          <div className="flex items-center justify-between">
+            <div className="text-lg font-semibold">Content Factory</div>
+            
+            <div className="flex items-center gap-4">
+              {/* Quota Display */}
+              {quotaData && (
+                <div className="text-sm text-muted-foreground">
+                  {quotaData.isGuest ? (
+                    <span>访客配额：{quotaData.remaining}/{quotaData.limit}次</span>
+                  ) : (
+                    <span>今日剩余：{quotaData.remaining}/{quotaData.limit}次</span>
+                  )}
+                </div>
+              )}
+              
+              {/* Login/User Button */}
+              {isAuthenticated && user ? (
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-muted-foreground">欢迎，{user.name}</span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      if (confirm('确定要退出登录吗？')) {
+                        window.location.href = '/api/oauth/logout';
+                      }
+                    }}
+                  >
+                    退出
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={() => window.location.href = getLoginUrl()}
+                  size="sm"
+                  className="gap-2"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  登录解锁完整配额
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+        
+        <div className="container relative py-16 md:py-24">
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-medium text-primary">
               <Sparkles className="h-4 w-4" />
