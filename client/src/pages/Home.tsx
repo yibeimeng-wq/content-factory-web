@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
@@ -23,6 +23,11 @@ import { useTrafficTracking } from "@/hooks/useTrafficTracking";
 export default function Home() {
   // Track visitor traffic source
   useTrafficTracking();
+
+  // Set page title for SEO
+  useEffect(() => {
+    document.title = 'Content Factory - AI视频创意本地化工具 | YouTube/TikTok内容本地化重创平台';
+  }, []);
 
   const [keyword, setKeyword] = useState("");
   const [targetMarket, setTargetMarket] = useState("brazil");
