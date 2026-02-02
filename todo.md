@@ -156,3 +156,7 @@
 - [x] 创建API使用统计查询接口
 - [x] 创建管理员API使用统计页面
 - [x] 测试API日志记录功能
+
+## Bug修复：API统计页面TypeError
+- [x] 修复ApiUsage.tsx中successRate.toFixed类型错误
+- [x] 测试页面正常显示

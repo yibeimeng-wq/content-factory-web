@@ -96,7 +96,7 @@ export default function ApiUsage() {
                 {totalStats?.totalCalls?.toLocaleString() || 0}
               </div>
               <p className="text-xs text-muted-foreground mt-1">
-                成功率: {totalStats?.successRate?.toFixed(1) || 0}%
+                成功率: {totalStats?.successRate ? Number(totalStats.successRate).toFixed(1) : 0}%
               </p>
             </CardContent>
           </Card>
