@@ -1,4 +1,5 @@
 import axios from "axios";
+import { recordApiLog } from "./db";
 
 const ZHIPU_API_URL = "https://open.bigmodel.cn/api/paas/v4/chat/completions";
 
@@ -35,13 +36,25 @@ export interface ZhipuChatResponse {
 
 /**
  * 调用智谱AI API
+ * @param request - API请求参数
+ * @param userId - 用户ID（可选，用于日志记录）
+ * @param operation - 操作类型（用于日志记录）
  */
-export async function callZhipuAI(request: ZhipuChatRequest): Promise<string> {
+export async function callZhipuAI(
+  request: ZhipuChatRequest,
+  userId?: number,
+  operation: string = "zhipu_api_call"
+): Promise<string> {
   const apiKey = process.env.GLM_API_KEY;
   
   if (!apiKey) {
     throw new Error("GLM_API_KEY environment variable is not set");
   }
+
+  const startTime = Date.now();
+  let success = true;
+  let errorMessage: string | undefined;
+  let responseData: ZhipuChatResponse | undefined;
 
   try {
     const response = await axios.post<ZhipuChatResponse>(
@@ -65,20 +78,53 @@ export async function callZhipuAI(request: ZhipuChatRequest): Promise<string> {
       throw new Error("No response from Zhipu AI");
     }
 
+    responseData = response.data;
     return response.data.choices[0].message.content;
   } catch (error) {
+    success = false;
     if (axios.isAxiosError(error)) {
       const message = error.response?.data?.error?.message || error.message;
-      throw new Error(`Zhipu AI API error: ${message}`);
+      errorMessage = `Zhipu AI API error: ${message}`;
+      throw new Error(errorMessage);
     }
+    errorMessage = error instanceof Error ? error.message : String(error);
     throw error;
+  } finally {
+    const responseTime = Date.now() - startTime;
+
+    // Extract prompt summary (first 200 chars of first user message)
+    let promptSummary = "";
+    const userMessage = request.messages.find(m => m.role === "user");
+    if (userMessage) {
+      promptSummary = userMessage.content.substring(0, 200);
+    }
+
+    // Log API usage (don't await to avoid blocking)
+    recordApiLog({
+      userId: userId ?? null,
+      operation,
+      model: request.model || "glm-4-flash",
+      promptSummary,
+      promptTokens: responseData?.usage?.prompt_tokens ?? null,
+      completionTokens: responseData?.usage?.completion_tokens ?? null,
+      totalTokens: responseData?.usage?.total_tokens ?? null,
+      responseTime,
+      success: success ? 1 : 0,
+      errorMessage: errorMessage ?? null,
+    }).catch((err) => {
+      console.error("[API Logging] Failed to record API log:", err);
+    });
   }
 }
 
 /**
  * 分析视频内容
  */
-export async function analyzeVideo(videoTitle: string, videoDescription: string): Promise<{
+export async function analyzeVideo(
+  videoTitle: string,
+  videoDescription: string,
+  userId?: number
+): Promise<{
   coreIdea: string;
   contentType: string;
   targetAudience: string;
@@ -97,20 +143,24 @@ export async function analyzeVideo(videoTitle: string, videoDescription: string)
 
 只返回JSON，不要其他内容。不要使用换行符或特殊控制字符。`;
 
-  const response = await callZhipuAI({
-    messages: [
-      {
-        role: "system",
-        content: "你是一个专业的视频内容分析师。只返回JSON格式的结果，不要包含任何其他文字。",
-      },
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
-    temperature: 0.3,
-    max_tokens: 1000,
-  });
+  const response = await callZhipuAI(
+    {
+      messages: [
+        {
+          role: "system",
+          content: "你是一个专业的视频内容分析师。只返回JSON格式的结果，不要包含任何其他文字。",
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      temperature: 0.3,
+      max_tokens: 1000,
+    },
+    userId,
+    "analyze_video"
+  );
 
   // 清理响应中的控制字符
   const cleanedResponse = response.replace(/[\x00-\x1f\x7f-\x9f]/g, '');
@@ -147,7 +197,8 @@ export async function recreateScript(
     keyElements: string[];
   },
   targetMarket: string,
-  targetLanguage: string
+  targetLanguage: string,
+  userId?: number
 ): Promise<string> {
   const prompt = `基于以下视频分析结果，为${targetMarket}市场重新创作一个本地化的视频脚本：
 
@@ -165,20 +216,24 @@ export async function recreateScript(
 
 请直接返回完整的脚本内容。`;
 
-  const response = await callZhipuAI({
-    messages: [
-      {
-        role: "system",
-        content: `你是一个专业的内容本地化专家，擅长为不同市场创作本地化内容。你了解${targetMarket}的文化、语言和习俗。`,
-      },
-      {
-        role: "user",
-        content: prompt,
-      },
-    ],
-    temperature: 0.8,
-    max_tokens: 4000,
-  });
+  const response = await callZhipuAI(
+    {
+      messages: [
+        {
+          role: "system",
+          content: `你是一个专业的内容本地化专家，擅长为不同市场创作本地化内容。你了解${targetMarket}的文化、语言和习俗。`,
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      temperature: 0.8,
+      max_tokens: 4000,
+    },
+    userId,
+    "recreate_script"
+  );
 
   return response;
 }

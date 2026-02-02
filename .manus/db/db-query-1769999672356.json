@@ -1,0 +1,18 @@
+{
+  "query": "\nSELECT id, name, email, role, createdAt, lastSignedIn \nFROM users \nORDER BY createdAt DESC;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user pK41xiw7tjGYRtg.root --database iSrVAz2EiiDJjP2QNFFrCL --execute \nSELECT id, name, email, role, createdAt, lastSignedIn \nFROM users \nORDER BY createdAt DESC;\n",
+  "rows": [
+    {
+      "id": "1",
+      "name": "Shimeng Wang",
+      "email": "yibeimeng@gmail.com",
+      "role": "admin",
+      "createdAt": "2026-01-13 10:26:24",
+      "lastSignedIn": "2026-02-02 02:34:14"
+    }
+  ],
+  "messages": [],
+  "stdout": "id\tname\temail\trole\tcreatedAt\tlastSignedIn\n1\tShimeng Wang\tyibeimeng@gmail.com\tadmin\t2026-01-13 10:26:24\t2026-02-02 02:34:14\n",
+  "stderr": "",
+  "execution_time_ms": 1489
+}

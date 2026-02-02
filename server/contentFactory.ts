@@ -85,14 +85,16 @@ export const contentFactoryRouter = router({
         // 2. 分析视频内容
         const analysis = await analyzeVideo(
           selectedVideo.title,
-          selectedVideo.descriptionSnippet || selectedVideo.title
+          selectedVideo.descriptionSnippet || selectedVideo.title,
+          isGuest ? undefined : userId  // Only log for authenticated users
         );
 
         // 3. 重新创作脚本
         const script = await recreateScript(
           analysis,
           targetMarket,
-          targetLanguage
+          targetLanguage,
+          isGuest ? undefined : userId  // Only log for authenticated users
         );
 
         // 记录使用（在返回结果之前）

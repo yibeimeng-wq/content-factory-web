@@ -1,0 +1,13 @@
+{
+  "query": "\nSELECT COUNT(*) as total_users FROM users;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user pK41xiw7tjGYRtg.root --database iSrVAz2EiiDJjP2QNFFrCL --execute \nSELECT COUNT(*) as total_users FROM users;\n",
+  "rows": [
+    {
+      "total_users": "1"
+    }
+  ],
+  "messages": [],
+  "stdout": "total_users\n1\n",
+  "stderr": "",
+  "execution_time_ms": 1542
+}

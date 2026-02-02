@@ -94,3 +94,36 @@ export const trafficSources = mysqlTable("trafficSources", {
 
 export type TrafficSource = typeof trafficSources.$inferSelect;
 export type InsertTrafficSource = typeof trafficSources.$inferInsert;
+
+/**
+ * API usage logs table.
+ * Tracks every GLM-4 API call with token consumption details.
+ */
+export const apiLogs = mysqlTable("apiLogs", {
+  id: int("id").autoincrement().primaryKey(),
+  /** User ID who made the API call (null for system calls) */
+  userId: int("userId"),
+  /** API endpoint or operation type (e.g., 'generate_script', 'chat_completion') */
+  operation: varchar("operation", { length: 100 }).notNull(),
+  /** Model used (e.g., 'glm-4-flash') */
+  model: varchar("model", { length: 50 }),
+  /** Input prompt or request summary */
+  promptSummary: text("promptSummary"),
+  /** Number of tokens in the prompt */
+  promptTokens: int("promptTokens"),
+  /** Number of tokens in the completion */
+  completionTokens: int("completionTokens"),
+  /** Total tokens used (prompt + completion) */
+  totalTokens: int("totalTokens"),
+  /** Response time in milliseconds */
+  responseTime: int("responseTime"),
+  /** Success status */
+  success: int("success").default(1).notNull(),
+  /** Error message if failed */
+  errorMessage: text("errorMessage"),
+  /** Timestamp of the API call */
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type ApiLog = typeof apiLogs.$inferSelect;
+export type InsertApiLog = typeof apiLogs.$inferInsert;

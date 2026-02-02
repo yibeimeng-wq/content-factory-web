@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import TrafficAnalytics from "./pages/TrafficAnalytics";
 import LinkGenerator from "./pages/LinkGenerator";
+import ApiUsage from "./pages/ApiUsage";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -15,6 +16,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path={"/analytics"} component={TrafficAnalytics} />
       <Route path={"/link-generator"} component={LinkGenerator} />
+      <Route path={"/api-usage"} component={ApiUsage} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />

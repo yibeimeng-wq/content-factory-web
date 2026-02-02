@@ -1,0 +1,8 @@
+{
+  "query": "\n-- 查询总用户数\nSELECT COUNT(*) as total_users FROM user;\n\n-- 查询今天注册的用户\nSELECT COUNT(*) as today_registrations \nFROM user \nWHERE DATE(createdAt) = CURDATE();\n\n-- 查询最近7天注册的用户\nSELECT COUNT(*) as week_registrations \nFROM user \nWHERE createdAt >= DATE_SUB(NOW(), INTERVAL 7 DAY);\n\n-- 查询所有用户的基本信息（不包含敏感信息）\nSELECT id, name, email, role, createdAt, lastSignedIn \nFROM user \nORDER BY createdAt DESC;\n\n-- 查询今天的使用记录\nSELECT COUNT(*) as today_usage \nFROM usage_records \nWHERE DATE(createdAt) = CURDATE();\n\n-- 查询总使用次数\nSELECT COUNT(*) as total_usage FROM usage_records;\n",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway03.us-east-1.prod.aws.tidbcloud.com --port 4000 --user pK41xiw7tjGYRtg.root --database iSrVAz2EiiDJjP2QNFFrCL --execute \n-- 查询总用户数\nSELECT COUNT(*) as total_users FROM user;\n\n-- 查询今天注册的用户\nSELECT COUNT(*) as today_registrations \nFROM user \nWHERE DATE(createdAt) = CURDATE();\n\n-- 查询最近7天注册的用户\nSELECT COUNT(*) as week_registrations \nFROM user \nWHERE createdAt >= DATE_SUB(NOW(), INTERVAL 7 DAY);\n\n-- 查询所有用户的基本信息（不包含敏感信息）\nSELECT id, name, email, role, createdAt, lastSignedIn \nFROM user \nORDER BY createdAt DESC;\n\n-- 查询今天的使用记录\nSELECT COUNT(*) as today_usage \nFROM usage_records \nWHERE DATE(createdAt) = CURDATE();\n\n-- 查询总使用次数\nSELECT COUNT(*) as total_usage FROM usage_records;\n",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1146 (42S02) at line 3: Table 'isrvaz2eiidjjp2qnffrcl.user' doesn't exist"
+  ]
+}
