@@ -821,10 +821,10 @@ ${result.script}`;
                 Manus AI Video Production Demo
               </div>
               <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
-                Jesus Manus — AI 视频创作实例
+                复活节 Jesus AIGC视频
               </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                5 段 AI 生成短视频，经智能排序与淡入淡出过渡，由 Manus 自动合并为一部完整影片
+                目标市场：巴西，目标语言：葡萄牙语
               </p>
             </div>
 
