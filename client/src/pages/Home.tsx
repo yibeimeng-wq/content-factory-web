@@ -589,7 +589,7 @@ ${result.script}`;
                   <TrackedVideo 
                     videoId="video-ecommerce"
                     videoType="ecommerce"
-                    videoSrc="/videos/ContentFactory_GlobalMotors.mp4"
+                    videoSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310419663031907567/CfVoPDYFIrjtLelb.mp4"
                   />
                   <div 
                     className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
@@ -668,7 +668,7 @@ ${result.script}`;
                   <TrackedVideo 
                     videoId="video-creators"
                     videoType="creators"
-                    videoSrc="/videos/ContentFactory_contentcreators.mp4"
+                    videoSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310419663031907567/XWmzcyNpbvVHXnqL.mp4"
                   />
                   <div 
                     className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
@@ -747,7 +747,7 @@ ${result.script}`;
                   <TrackedVideo 
                     videoId="video-kols"
                     videoType="kols"
-                    videoSrc="/videos/ContentFactory_influencers.mp4"
+                    videoSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310419663031907567/AWPkPxjdCKQwebtV.mp4"
                   />
                   <div 
                     className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
@@ -847,7 +847,7 @@ ${result.script}`;
                   <TrackedVideo
                     videoId="video-jesus-manus"
                     videoType="jesus-manus"
-                    videoSrc="/videos/ContentFactory_jesus_manus_demo.mp4"
+                    videoSrc="https://files.manuscdn.com/user_upload_by_module/session_file/310419663031907567/SLnbApBJWSJSZXky.mp4"
                   />
                   <div
                     className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"

@@ -160,3 +160,11 @@
 ## Bug修复：API统计页面TypeError
 - [x] 修复ApiUsage.tsx中successRate.toFixed类型错误
 - [x] 测试页面正常显示
+
+## 新功能：分镜生成和视频生成质量测试
+- [ ] 分析现有脚本生成详细分镜表（5个场景）
+- [ ] 为每个分镜生成静态图片（使用DALL-E 3或Stable Diffusion）
+- [ ] 测试方式1：图生视频（Image-to-Video）- 使用Runway/Luma API
+- [ ] 测试方式2：纯文本生视频（Text-to-Video）- 使用Runway/Luma API
+- [ ] 对比两种方式的质量（角色一致性、场景还原度、流畅度）
+- [ ] 生成质量对比报告和成本分析
