@@ -342,6 +342,18 @@ ${result.script}`;
               <a href="#target-customers" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 目标客户
               </a>
+              <span className="text-muted-foreground">·</span>
+              <a
+                href="#jesus-manus-demo"
+                className="text-sm font-medium text-primary hover:text-primary/80 transition-colors inline-flex items-center gap-1"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('jesus-manus-demo')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                <Video className="h-3.5 w-3.5" />
+                Demo展示
+              </a>
             </div>
             
             <h1 className="mb-6 text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl">
