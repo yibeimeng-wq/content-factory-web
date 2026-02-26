@@ -3,7 +3,7 @@ import { trpc } from '@/lib/trpc';
 
 interface TrackedVideoProps {
   videoId: string;
-  videoType: 'ecommerce' | 'creators' | 'kols';
+  videoType: 'ecommerce' | 'creators' | 'kols' | 'jesus-manus';
   videoSrc: string;
 }
 
@@ -36,6 +36,8 @@ export function TrackedVideo({ videoId, videoType, videoSrc }: TrackedVideoProps
     });
   };
 
+  const aspectRatio = videoType === 'jesus-manus' ? '16/9' : '9/16';
+
   return (
     <video 
       id={videoId}
@@ -61,7 +63,7 @@ export function TrackedVideo({ videoId, videoType, videoSrc }: TrackedVideoProps
         }
       }}
       className="w-full object-contain bg-black"
-      style={{ aspectRatio: '9/16' }}
+      style={{ aspectRatio }}
       controls
       preload="none"
       onPlay={handlePlay}

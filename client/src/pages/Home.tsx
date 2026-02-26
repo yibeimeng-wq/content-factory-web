@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
@@ -28,6 +28,100 @@ export default function Home() {
   useEffect(() => {
     document.title = 'Content Factory - AI视频创意本地化工具 | YouTube/TikTok内容本地化重创平台';
   }, []);
+
+  // Jesus Manus Demo - storyboard data
+  const SHOTS = [
+    {
+      id: 1,
+      label: "Shot 1",
+      zhTitle: "伯利恒的诞生",
+      ptTitle: "O Nascimento em Belém",
+      duration: 6,
+      start: 0,
+      end: 6,
+      camera: "Slow Zoom In",
+      scene: "星空下的伯利恒，木制小教堂烛光摇曳，银河横贯夜空，镜头缓缓推进。",
+    },
+    {
+      id: 2,
+      label: "Shot 2",
+      zhTitle: "圣保罗的传道",
+      ptTitle: "A Caminhada em São Paulo",
+      duration: 8,
+      start: 5.5,
+      end: 13,
+      camera: "Pan Right",
+      scene: "圣保罗城市天际线，巴洛克大教堂与现代摩天楼并立，黄金时刻光线，镜头右摇。",
+    },
+    {
+      id: 3,
+      label: "Shot 3",
+      zhTitle: "里约热内卢的奇迹",
+      ptTitle: "O Milagre do Rio de Janeiro",
+      duration: 8,
+      start: 13,
+      end: 20.5,
+      camera: "Dolly In",
+      scene: "科帕卡巴纳海滩日落，耶稣发光身影现于山顶，双臂展开，镜头推轨前进。",
+    },
+    {
+      id: 4,
+      label: "Shot 4",
+      zhTitle: "伊瓜苏的受难",
+      ptTitle: "A Crucificação em Foz do Iguaçu",
+      duration: 8,
+      start: 20.5,
+      end: 28,
+      camera: "Static",
+      scene: "伊瓜苏瀑布磅礴水雾中，木制十字架剪影矗立前景，戏剧性侧光，固定镜头。",
+    },
+    {
+      id: 5,
+      label: "Shot 5",
+      zhTitle: "欧鲁普雷图的复活",
+      ptTitle: "A Ressurreição em Ouro Preto",
+      duration: 8,
+      start: 28,
+      end: 36,
+      camera: "Tilt Up",
+      scene: "欧鲁普雷图巴洛克古城，鹅卵石街道，彩虹横跨金色教堂，镜头由地面缓缓上摇。",
+    },
+  ];
+
+  const [activeShot, setActiveShot] = useState(0);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const demoVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  const handleTimeUpdate = useCallback(() => {
+    const video = demoVideoRef.current;
+    if (!video) return;
+    const t = video.currentTime;
+    const duration = video.duration || 36;
+    setVideoProgress((t / duration) * 100);
+    const idx = SHOTS.findIndex((s, i) => {
+      const next = SHOTS[i + 1];
+      return t >= s.start && (next ? t < next.start : true);
+    });
+    if (idx !== -1) setActiveShot(idx);
+  }, []);
+
+  useEffect(() => {
+    // Attach timeupdate listener after video element mounts
+    const interval = setInterval(() => {
+      const video = document.getElementById('video-jesus-manus') as HTMLVideoElement | null;
+      if (video && !demoVideoRef.current) {
+        demoVideoRef.current = video;
+        video.addEventListener('timeupdate', handleTimeUpdate);
+        clearInterval(interval);
+      }
+    }, 300);
+    return () => {
+      clearInterval(interval);
+      if (demoVideoRef.current) {
+        demoVideoRef.current.removeEventListener('timeupdate', handleTimeUpdate);
+      }
+    };
+  }, [handleTimeUpdate]);
 
   const [keyword, setKeyword] = useState("");
   const [targetMarket, setTargetMarket] = useState("brazil");
@@ -710,6 +804,117 @@ ${result.script}`;
                     </div>
                   </div>
                 </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+
+      {/* Jesus Manus Demo Section */}
+      <div id="jesus-manus-demo" className="border-t bg-gradient-to-b from-background to-muted/20 py-16">
+        <div className="container">
+          <div className="mx-auto max-w-4xl">
+            {/* Section Header */}
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
+                <Sparkles className="h-4 w-4" />
+                Manus AI Video Production Demo
+              </div>
+              <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
+                Jesus Manus — AI 视频创作实例
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                5 段 AI 生成短视频，经智能排序与淡入淡出过渡，由 Manus 自动合并为一部完整影片
+              </p>
+            </div>
+
+            {/* Video Player — same frame as KOL demo */}
+            <Card className="flex flex-col bg-transparent border-none shadow-none">
+              <CardHeader className="p-0">
+                <div className="relative overflow-hidden rounded-t-lg group">
+                  <TrackedVideo
+                    videoId="video-jesus-manus"
+                    videoType="jesus-manus"
+                    videoSrc="/videos/ContentFactory_jesus_manus_demo.mp4"
+                  />
+                  <div
+                    className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                    onClick={() => {
+                      const video = document.getElementById('video-jesus-manus') as HTMLVideoElement;
+                      if (video) {
+                        if (video.paused) { video.play(); } else { video.pause(); }
+                      }
+                    }}
+                  >
+                    <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+                      <svg className="w-8 h-8 text-primary ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </CardHeader>
+
+              <CardContent className="p-0 pt-4 space-y-4">
+                {/* Timeline progress bar */}
+                <div className="relative h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                  <div
+                    className="absolute left-0 top-0 h-full rounded-full bg-primary"
+                    style={{ width: `${videoProgress}%`, transition: 'width 0.25s linear' }}
+                  />
+                  {/* Shot boundary markers */}
+                  {SHOTS.slice(1).map((shot) => (
+                    <div
+                      key={shot.id}
+                      className="absolute top-0 h-full w-px bg-background/60"
+                      style={{ left: `${(shot.start / 36) * 100}%` }}
+                    />
+                  ))}
+                </div>
+
+                {/* Storyboard cards */}
+                <div className="grid grid-cols-5 gap-2">
+                  {SHOTS.map((shot, idx) => (
+                    <button
+                      key={shot.id}
+                      className={[
+                        'text-left rounded-lg border p-3 space-y-1.5 cursor-pointer',
+                        'transition-all duration-500 ease-in-out',
+                        activeShot === idx
+                          ? 'border-primary bg-primary/10 shadow-md scale-[1.03]'
+                          : 'border-border bg-muted/30 hover:border-primary/40 hover:bg-muted/60',
+                      ].join(' ')}
+                      onClick={() => {
+                        const video = document.getElementById('video-jesus-manus') as HTMLVideoElement;
+                        if (video) {
+                          video.currentTime = shot.start;
+                          video.play();
+                        }
+                      }}
+                    >
+                      <div className={[
+                        'text-xs font-bold transition-colors duration-500',
+                        activeShot === idx ? 'text-primary' : 'text-muted-foreground',
+                      ].join(' ')}>
+                        {shot.label}
+                      </div>
+                      <div className="text-xs font-semibold leading-tight">{shot.zhTitle}</div>
+                      <div className="text-[10px] text-muted-foreground leading-tight italic">{shot.ptTitle}</div>
+                      <div className="flex items-center gap-1 pt-0.5">
+                        <span className={[
+                          'inline-block h-1.5 w-1.5 rounded-full transition-colors duration-500',
+                          activeShot === idx ? 'bg-primary' : 'bg-muted-foreground/40',
+                        ].join(' ')} />
+                        <span className="text-[10px] text-muted-foreground">{shot.duration}s · {shot.camera}</span>
+                      </div>
+                      <p className="text-[10px] text-muted-foreground leading-snug line-clamp-2">{shot.scene}</p>
+                    </button>
+                  ))}
+                </div>
+
+                <p className="text-center text-xs text-muted-foreground pt-1">
+                  点击任意分镜卡片可跳转至对应片段 · 5 段视频 · 淡入淡出过渡 · 1280×720 · 36 秒 · 由 Manus AI 自动合并
+                </p>
               </CardContent>
             </Card>
           </div>

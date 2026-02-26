@@ -11,7 +11,7 @@ export const videoTrackingRouter = router({
   trackPlayback: publicProcedure
     .input(
       z.object({
-        videoType: z.enum(["ecommerce", "creators", "kols"]),
+        videoType: z.enum(["ecommerce", "creators", "kols", "jesus-manus"]),
         duration: z.number().optional(),
         completed: z.boolean().default(false),
       })
